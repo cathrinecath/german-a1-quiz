@@ -1,8 +1,8 @@
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "shadcn/tailwind.css";
 
 @layer utilities {
   .text-balance {
@@ -48,6 +48,19 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    /* App semantic palette (from Technical Design Doc) */
+    --color-bg-app: #F5F0E8;
+    --color-bg-card: #EDE9E0;
+    --color-bg-surface: #FFF8F0;
+    --color-border-subtle: #D4CEBF;
+    --color-text-primary: #2D2A3E;
+    --color-text-body: #5A5248;
+    --color-text-muted: #8A7F72;
+    --color-indigo: #5B55C2;
+    --color-indigo-light: #EAE6FD;
+    --color-correct-bg: #E2F5EC;
+    --color-wrong-bg: #FDE8E8;
   }
   .dark {
     --background: oklch(0.145 0 0);
@@ -84,6 +97,10 @@
   }
   * {
     @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    overflow-x: hidden;
   }
   body {
     @apply bg-background text-foreground;
