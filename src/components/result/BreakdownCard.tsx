@@ -3,16 +3,19 @@ interface BreakdownCardProps {
   weakCount: number;
 }
 
-export function BreakdownCard({ masteredCount, weakCount }: BreakdownCardProps) {
+export function BreakdownCard({
+  masteredCount,
+  weakCount,
+}: BreakdownCardProps) {
   return (
-    <div data-stub="BreakdownCard" className="bg-bg-card rounded-card p-3 space-y-1">
-      <div className="flex justify-between text-sm">
+    <div className="bg-bg-card rounded-card px-4 py-3 border border-border-subtle divide-y divide-border-subtle">
+      <div className="flex justify-between items-center text-sm pb-2 text-text-body">
         <span>Mastered</span>
-        <span className="font-medium">{masteredCount}</span>
+        <span className="font-semibold text-text-primary">{masteredCount}</span>
       </div>
-      <div className="flex justify-between text-sm">
+      <div className="flex justify-between items-center text-sm pt-2 text-text-body">
         <span>Still weak</span>
-        <span className="font-medium">{weakCount}</span>
+        <span className="font-semibold text-text-primary">{weakCount}</span>
       </div>
     </div>
   );

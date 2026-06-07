@@ -19,8 +19,10 @@ export default function TopicPickerPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-base font-medium text-text-primary">Pick a topic</h1>
+    <div className="flex flex-col gap-5">
+      <h1 className="text-base font-medium text-text-primary text-center">
+        Pick a topic
+      </h1>
 
       <div className="flex flex-col gap-2">
         {getAllTopics().map((key) => {
@@ -38,16 +40,19 @@ export default function TopicPickerPage() {
         })}
       </div>
 
-      <button
-        onClick={handleStart}
-        disabled={!selected}
-        className="w-full bg-indigo-app text-white rounded-btn min-h-[44px] py-2 text-sm font-medium disabled:opacity-50"
-      >
-        Start session
-      </button>
-      <p className="text-xs text-center text-text-muted">
-        EN→DE · score resets on refresh
-      </p>
+      <div className="space-y-1">
+        <button
+          type="button"
+          onClick={handleStart}
+          disabled={!selected}
+          className="w-full bg-indigo-app text-white rounded-btn min-h-[44px] py-2 text-sm font-semibold disabled:opacity-50 hover:bg-indigo-app/90 transition-colors"
+        >
+          Start session
+        </button>
+        <p className="text-xs text-center text-text-muted italic">
+          EN→DE · score resets on refresh
+        </p>
+      </div>
     </div>
   );
 }

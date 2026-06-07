@@ -36,6 +36,29 @@ describe("pickDistractors — word cards", () => {
   });
 });
 
+describe("pickDistractors — duplicate german values in topic", () => {
+  // Mirrors real data: sein topic has both 'wir sind' and 'Sie sind' with german='sind'.
+  const seinCards: QuizCard[] = [
+    { id: "s-ich", topic: "sein", type: "word", english: "I",   german: "bin",  explanation: "" },
+    { id: "s-du",  topic: "sein", type: "word", english: "you", german: "bist", explanation: "" },
+    { id: "s-er",  topic: "sein", type: "word", english: "he",  german: "ist",  explanation: "" },
+    { id: "s-wir", topic: "sein", type: "word", english: "we",  german: "sind", explanation: "" },
+    { id: "s-ihr", topic: "sein", type: "word", english: "y'all", german: "seid", explanation: "" },
+    { id: "s-sie-formal", topic: "sein", type: "word", english: "you (formal)", german: "sind", explanation: "" },
+  ];
+
+  it("returns no duplicate option labels", () => {
+    const result = pickDistractors(seinCards[3], seinCards); // current = wir/sind
+    expect(new Set(result).size).toBe(result.length);
+  });
+
+  it("does not include the correct answer as a wrong distractor when a sibling card shares the same german", () => {
+    const result = pickDistractors(seinCards[3], seinCards); // current = wir/sind
+    const sindCount = result.filter((o) => o === "sind").length;
+    expect(sindCount).toBe(1);
+  });
+});
+
 describe("pickDistractors — gender cards", () => {
   const genderCard: QuizCard = {
     id: "g-hund", topic: "nounGender", type: "gender",

@@ -9,9 +9,13 @@ export function pickDistractors(card: QuizCard, allTopicCards: QuizCard[]): stri
     return shuffleArray([card.german, ...wrongArticles, wrongArticles[0]]);
   }
 
-  const wrongOptions = allTopicCards
-    .filter((c) => c.id !== card.id)
-    .map((c) => c.german);
+  const wrongOptions = Array.from(
+    new Set(
+      allTopicCards
+        .filter((c) => c.german !== card.german)
+        .map((c) => c.german),
+    ),
+  );
   const shuffledWrong = shuffleArray(wrongOptions).slice(0, 3);
   return shuffleArray([card.german, ...shuffledWrong]);
 }

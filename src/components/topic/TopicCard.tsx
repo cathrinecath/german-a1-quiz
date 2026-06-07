@@ -15,20 +15,20 @@ export function TopicCard({
 }: TopicCardProps) {
   const completed = totalCount > 0 && masteredCount === totalCount;
   const borderClass = completed
-    ? "border-green-600"
+    ? "border-green-700/50 bg-correct-bg"
     : isSelected
-      ? "border-indigo-app"
-      : "border-border-subtle";
+      ? "border-indigo-app bg-indigo-light"
+      : "border-border-subtle bg-bg-card";
 
   return (
     <button
-      data-stub="TopicCard"
+      type="button"
       data-selected={isSelected}
       data-completed={completed}
       onClick={onSelect}
-      className={`w-full bg-bg-card rounded-card p-3 border ${borderClass} flex justify-between items-center min-h-[44px]`}
+      className={`w-full rounded-card px-4 py-3 border flex justify-between items-center min-h-[44px] transition-colors ${borderClass}`}
     >
-      <span className="font-medium text-sm">{topicName}</span>
+      <span className="text-sm font-medium text-text-primary">{topicName}</span>
       <span className="text-xs text-text-muted">
         {masteredCount}/{totalCount}
         {completed && " ✓"}

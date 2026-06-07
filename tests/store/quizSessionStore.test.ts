@@ -70,4 +70,38 @@ describe("quizSessionStore", () => {
     expect(state.masteredCards).toHaveLength(0);
     expect(state.missedCards).toHaveLength(0);
   });
+
+  it("can fully master an 8-card session — every card reaches 'mastered' before sessionComplete", () => {
+    // Regression for: requeueAfter values (7 or 8) used to exceed the
+    // 8-card cycle length, leaving every card permanently weak and causing
+    // sessionComplete to fire with 0 mastered. requeueAfter is now capped
+    // at queue.length - 1 so cards always have time to come back.
+    const eightCards = Array.from({ length: 8 }, (_, i) => ({
+      id: `c${i}`,
+      topic: "greetings",
+      type: "word" as const,
+      english: `english-${i}`,
+      german: `german-${i}`,
+      explanation: "",
+    }));
+
+    const store = useQuizSessionStore;
+    store.getState().startSession("Greetings", eightCards);
+
+    // Answer every presented card correctly until the session ends. Cap at
+    // 100 turns so a hypothetical infinite loop fails the test loudly.
+    let turns = 0;
+    while (!store.getState().sessionComplete && turns < 100) {
+      const { queue, currentCardIndex } = store.getState();
+      const current = queue[currentCardIndex].card;
+      store.getState().submitAnswer(current.german, true);
+      store.getState().advanceToNextCard();
+      turns++;
+    }
+
+    const state = store.getState();
+    expect(state.sessionComplete).toBe(true);
+    expect(state.masteredCards).toHaveLength(8);
+    expect(state.queue.every((q) => q.cardState === "mastered")).toBe(true);
+  });
 });
