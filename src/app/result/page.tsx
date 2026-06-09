@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuizSessionStore } from "@/store/quizSessionStore";
-import { getCardsByTopic } from "@/data/cards";
+import { getSessionCards } from "@/data/cards";
 import { ScoreDisplay } from "@/components/result/ScoreDisplay";
 import { BreakdownCard } from "@/components/result/BreakdownCard";
 import { MissedWordList } from "@/components/result/MissedWordList";
@@ -39,7 +39,7 @@ export default function ResultPage() {
 
   const retryAll = () => {
     if (!topicKey) return;
-    startSession(topicName, getCardsByTopic(topicKey));
+    startSession(topicName, getSessionCards(topicKey));
     router.push("/quiz");
   };
 

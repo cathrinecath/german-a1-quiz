@@ -1,4 +1,4 @@
-export type CardType = "word" | "gender";
+export type CardType = "word" | "gender" | "question";
 export type CardState = "unseen" | "wrong" | "weak" | "mastered";
 export type AnswerState = "unanswered" | "correct" | "wrong" | "dimmed";
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { TOPIC_LABELS, getAllTopics, getCardsByTopic } from "@/data/cards";
+import { TOPIC_LABELS, getAllTopics, getSessionCards, getSessionSize } from "@/data/cards";
 import { TopicCard } from "@/components/topic/TopicCard";
 import { useQuizSessionStore } from "@/store/quizSessionStore";
 
@@ -13,8 +13,7 @@ export default function TopicPickerPage() {
 
   const handleStart = () => {
     if (!selected) return;
-    const cards = getCardsByTopic(selected);
-    startSession(TOPIC_LABELS[selected], cards);
+    startSession(TOPIC_LABELS[selected], getSessionCards(selected));
     router.push("/quiz");
   };
 
@@ -26,7 +25,7 @@ export default function TopicPickerPage() {
 
       <div className="flex flex-col gap-2">
         {getAllTopics().map((key) => {
-          const total = getCardsByTopic(key).length;
+          const total = getSessionSize(key);
           return (
             <TopicCard
               key={key}
