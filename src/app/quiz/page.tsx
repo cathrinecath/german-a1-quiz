@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useQuizSessionStore } from "@/store/quizSessionStore";
-import { getCardsByTopic } from "@/data/cards";
+import { getDistractorPool } from "@/data/cards";
 import { pickDistractors } from "@/lib/pickDistractors";
 import { getAdvanceMode } from "@/lib/getAdvanceMode";
 import { ProgressBar } from "@/components/quiz/ProgressBar";
@@ -47,7 +47,7 @@ export default function QuizPage() {
   }, [advanceMode, advanceToNextCard]);
 
   const options = useMemo(
-    () => (card ? pickDistractors(card, getCardsByTopic(card.topic)) : []),
+    () => (card ? pickDistractors(card, getDistractorPool(card.topic)) : []),
     [card],
   );
 
@@ -87,6 +87,8 @@ export default function QuizPage() {
         </div>
       </div>
       <QuestionCard
+        key={card.id}
+        type={card.type}
         englishWord={card.english}
         sentenceDe={card.sentenceDe}
         sentenceEn={card.sentenceEn}

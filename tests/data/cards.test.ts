@@ -5,16 +5,16 @@ const EXPECTED_COUNTS: Record<string, number> = {
   pronouns: 8,
   sein: 6,
   haben: 6,
-  greetings: 8,
-  numbers: 12,
+  greetings: 18,
   questionWords: 8,
-  nounGender: 10,
+  formingQuestions: 8,
+  nounGender: 30,
   commonVerbs: 10,
 };
 
 describe("cards data", () => {
-  it("contains exactly 68 cards in total", () => {
-    expect(cards).toHaveLength(68);
+  it("contains exactly 94 cards in total", () => {
+    expect(cards).toHaveLength(94);
   });
 
   it("contains the spec'd count per topic", () => {
@@ -23,23 +23,20 @@ describe("cards data", () => {
     }
   });
 
-  it("getAllTopics returns the 8 topic keys", () => {
+  it("getAllTopics returns every TOPIC_LABELS key including generated topics", () => {
     const topics = getAllTopics();
-    expect(topics).toHaveLength(8);
-    for (const key of Object.keys(EXPECTED_COUNTS)) {
-      expect(topics).toContain(key);
-    }
+    expect(topics).toHaveLength(Object.keys(TOPIC_LABELS).length);
+    ["numbers", "ordinals", "formingQuestions"].forEach((k) => expect(topics).toContain(k));
   });
 
-  it("every card has required fields and a valid topic", () => {
+  it("every card has required fields and a valid card type", () => {
     const validTopics = Object.keys(TOPIC_LABELS);
     for (const card of cards) {
       expect(card.id).toBeTruthy();
-      expect(card.english).toBeTruthy();
       expect(card.german).toBeTruthy();
       expect(card.explanation).toBeTruthy();
       expect(validTopics).toContain(card.topic);
-      expect(["word", "gender"]).toContain(card.type);
+      expect(["word", "gender", "question"]).toContain(card.type);
     }
   });
 
@@ -63,10 +60,4 @@ describe("cards data", () => {
     }
   });
 
-  it("numbers topic cards omit sentences (self-contained per PRD)", () => {
-    for (const card of getCardsByTopic("numbers")) {
-      expect(card.sentenceDe).toBeUndefined();
-      expect(card.sentenceEn).toBeUndefined();
-    }
-  });
 });

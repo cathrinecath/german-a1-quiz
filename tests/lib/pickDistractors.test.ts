@@ -86,3 +86,20 @@ describe("pickDistractors — gender cards", () => {
     });
   });
 });
+
+describe("pickDistractors — forming-questions (question type)", () => {
+  const questionCards: QuizCard[] = [
+    { id: "fq-1", topic: "formingQuestions", type: "question", english: "", german: "Wie heisst du?", explanation: "" },
+    { id: "fq-2", topic: "formingQuestions", type: "question", english: "", german: "Wo wohnst du?", explanation: "" },
+    { id: "fq-3", topic: "formingQuestions", type: "question", english: "", german: "Wer ist das?", explanation: "" },
+    { id: "fq-4", topic: "formingQuestions", type: "question", english: "", german: "Wie alt bist du?", explanation: "" },
+    { id: "fq-5", topic: "formingQuestions", type: "question", english: "", german: "Warum lernst du Deutsch?", explanation: "" },
+  ];
+
+  it("returns 4 distinct options including the correct question", () => {
+    const result = pickDistractors(questionCards[0], questionCards);
+    expect(result).toHaveLength(4);
+    expect(new Set(result).size).toBe(4);
+    expect(result).toContain("Wie heisst du?");
+  });
+});
