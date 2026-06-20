@@ -5,8 +5,8 @@ import { pickDistractors } from "@/lib/pickDistractors";
 describe("plurals topic", () => {
   const plurals = getCardsByTopic("plurals");
 
-  it("has 15 word-type cards", () => {
-    expect(plurals).toHaveLength(15);
+  it("has 50 word-type cards", () => {
+    expect(plurals).toHaveLength(50);
     plurals.forEach((c) => expect(c.type).toBe("word"));
   });
 
@@ -15,8 +15,8 @@ describe("plurals topic", () => {
   });
 
   it("has unique ids and answers", () => {
-    expect(new Set(plurals.map((c) => c.id)).size).toBe(15);
-    expect(new Set(plurals.map((c) => c.german)).size).toBe(15);
+    expect(new Set(plurals.map((c) => c.id)).size).toBe(50);
+    expect(new Set(plurals.map((c) => c.german)).size).toBe(50);
   });
 
   it("covers distinct plural patterns", () => {

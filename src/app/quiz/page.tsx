@@ -46,7 +46,7 @@ export default function QuizPage() {
     return () => clearTimeout(t);
   }, [advanceMode, advanceToNextCard]);
 
-  const options = useMemo(
+  const rawOptions = useMemo(
     () => (card ? pickDistractors(card, getDistractorPool(card.topic)) : []),
     [card],
   );
@@ -74,6 +74,11 @@ export default function QuizPage() {
     ? answerStates[selectedAnswer] === "wrong"
     : false;
 
+  const stripPluralArticle = (value: string) =>
+    card.topic === "plurals" ? value.replace(/^die /, "") : value;
+  const options = rawOptions.map(stripPluralArticle);
+  const correctAnswer = stripPluralArticle(card.german);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-3">
@@ -100,8 +105,8 @@ export default function QuizPage() {
       <OptionGrid
         options={options}
         selectedAnswer={selectedAnswer}
-        correctAnswer={card.german}
-        onSelect={(label) => submitAnswer(label, label === card.german)}
+        correctAnswer={correctAnswer}
+        onSelect={(label) => submitAnswer(label, label === correctAnswer)}
       />
       {advanceMode === "next-button" && <NextButton onNext={advanceToNextCard} />}
     </div>

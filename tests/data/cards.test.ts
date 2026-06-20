@@ -9,14 +9,14 @@ const EXPECTED_COUNTS: Record<string, number> = {
   questionWords: 8,
   formingQuestions: 8,
   nounGender: 50,
-  plurals: 15,
+  plurals: 50,
   genderPatterns: 10,
   commonVerbs: 10,
 };
 
 describe("cards data", () => {
-  it("contains exactly 139 cards in total", () => {
-    expect(cards).toHaveLength(139);
+  it("contains exactly 174 cards in total", () => {
+    expect(cards).toHaveLength(174);
   });
 
   it("contains the spec'd count per topic", () => {

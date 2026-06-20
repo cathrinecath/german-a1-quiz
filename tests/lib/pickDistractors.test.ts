@@ -65,18 +65,17 @@ describe("pickDistractors — gender cards", () => {
     english: "dog", german: "der", explanation: "",
   };
 
-  it("returns exactly 4 options for a gender card", () => {
+  it("returns exactly 3 distinct options for a gender card", () => {
     const result = pickDistractors(genderCard, []);
-    expect(result).toHaveLength(4);
+    expect(result).toHaveLength(3);
+    expect(new Set(result).size).toBe(3);
   });
 
-  it("includes der, die, das and a repeated article", () => {
+  it("includes der, die and das", () => {
     const result = pickDistractors(genderCard, []);
     expect(result).toContain("der");
     expect(result).toContain("die");
     expect(result).toContain("das");
-    const unique = new Set(result);
-    expect(unique.size).toBe(3);
   });
 
   it("only uses valid german articles", () => {
