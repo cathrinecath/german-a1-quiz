@@ -3,10 +3,7 @@ import { shuffleArray } from "./shuffleArray";
 
 export function pickDistractors(card: QuizCard, allTopicCards: QuizCard[]): string[] {
   if (card.type === "gender") {
-    const articles = ["der", "die", "das"];
-    const wrongArticles = articles.filter((a) => a !== card.german);
-    // 4th option repeats the first wrong article (simplest "most-confused" heuristic).
-    return shuffleArray([card.german, ...wrongArticles, wrongArticles[0]]);
+    return shuffleArray(["der", "die", "das"]);
   }
 
   const wrongOptions = Array.from(

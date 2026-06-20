@@ -8,13 +8,15 @@ const EXPECTED_COUNTS: Record<string, number> = {
   greetings: 18,
   questionWords: 8,
   formingQuestions: 8,
-  nounGender: 30,
+  nounGender: 50,
+  plurals: 50,
+  genderPatterns: 10,
   commonVerbs: 10,
 };
 
 describe("cards data", () => {
-  it("contains exactly 94 cards in total", () => {
-    expect(cards).toHaveLength(94);
+  it("contains exactly 174 cards in total", () => {
+    expect(cards).toHaveLength(174);
   });
 
   it("contains the spec'd count per topic", () => {
@@ -26,7 +28,9 @@ describe("cards data", () => {
   it("getAllTopics returns every TOPIC_LABELS key including generated topics", () => {
     const topics = getAllTopics();
     expect(topics).toHaveLength(Object.keys(TOPIC_LABELS).length);
-    ["numbers", "ordinals", "formingQuestions"].forEach((k) => expect(topics).toContain(k));
+    ["numbers", "ordinals", "formingQuestions", "plurals", "genderPatterns"].forEach((k) =>
+      expect(topics).toContain(k),
+    );
   });
 
   it("every card has required fields and a valid card type", () => {
@@ -45,10 +49,10 @@ describe("cards data", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("gender-typed cards only appear in nounGender topic and use der/die/das", () => {
+  it("gender-typed cards appear only in noun-gender topics and use der/die/das", () => {
     for (const card of cards) {
       if (card.type === "gender") {
-        expect(card.topic).toBe("nounGender");
+        expect(["nounGender", "genderPatterns"]).toContain(card.topic);
         expect(["der", "die", "das"]).toContain(card.german);
       }
     }

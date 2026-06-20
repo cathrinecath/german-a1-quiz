@@ -16,10 +16,11 @@ export function OptionGrid({
 }: OptionGridProps) {
   const longest = options.reduce((max, opt) => Math.max(max, opt.length), 0);
   const isSingleColumn = longest > 15;
+  const columnClass = options.length === 3 ? "grid grid-cols-3 gap-2" : "grid grid-cols-2 gap-2";
   const locked = selectedAnswer !== null;
 
   return (
-    <div className={isSingleColumn ? "flex flex-col gap-2" : "grid grid-cols-2 gap-2"}>
+    <div className={isSingleColumn ? "flex flex-col gap-2" : columnClass}>
       {options.map((opt, i) => (
         <OptionButton
           key={`${opt}-${i}`}

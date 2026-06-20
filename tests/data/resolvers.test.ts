@@ -32,7 +32,7 @@ describe("getSessionSize", () => {
   });
   it("is the static count otherwise", () => {
     expect(getSessionSize("greetings")).toBe(18);
-    expect(getSessionSize("nounGender")).toBe(30);
+    expect(getSessionSize("nounGender")).toBe(50);
     expect(getSessionSize("formingQuestions")).toBe(8);
   });
 });
